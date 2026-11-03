@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accra Time</title>
+<style>
+  :root { color-scheme: dark; --bg: #070a14; --fg: #eaf0ff; --muted: #7f8ba8; --accent: #4fd1c5; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--bg); color: var(--fg);
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    text-align: center;
+  }
+  .place { font-size: clamp(11px, 3.5vw, 16px); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .time { font-size: clamp(28px, 16vw, 90px); font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; text-shadow: 0 0 24px rgba(79, 209, 197, 0.35); }
+  .date { font-size: clamp(11px, 4vw, 18px); color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="place">Accra, Ghana</div>
+  <div class="time" id="time">--:--:--</div>
+  <div class="date" id="date"></div>
+<script>
+  var TZ = "Africa/Accra";
+  var timeFmt = new Intl.DateTimeFormat("en-GB", {
+    timeZone: TZ, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
+  });
+  var dateFmt = new Intl.DateTimeFormat("en-GB", {
+    timeZone: TZ, weekday: "long", day: "numeric", month: "long", year: "numeric"
+  });
+  function tick() {
+    var now = new Date();
+    document.getElementById("time").textContent = timeFmt.format(now);
+    document.getElementById("date").textContent = dateFmt.format(now);
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
